@@ -1,0 +1,102 @@
+<!-- HTML code -->
+<html>
+  <head>
+    <title>Medical Clinic</title>
+    <!-- Link to a stylesheet -->
+    <link rel="stylesheet" href="styles.css">
+  </head>
+  <body>
+    <!-- Navigation menu -->
+    <ul>
+      <li><a href="#">Home</a></li>
+      <li><a href="#">About</a></li>
+      <li><a href="#">Contact</a></li>
+      <li><a href="#">Appointments</a></li>
+    </ul>
+    <!-- Heading -->
+    <h1>Welcome to Our Medical Clinic</h1>
+    <!-- Paragraph -->
+    <p>We offer a wide range of medical services for all of your healthcare needs.</p>
+    <!-- Button -->
+    <button id="book-appointment-button">Book an Appointment</button>
+    <!-- Form for collecting user information -->
+    <form id="contact-form">
+      <label for="name">Name:</label><br>
+      <input type="text" id="name" name="name"><br>
+      <label for="email">Email:</label><br>
+      <input type="email" id="email" name="email"><br>
+      <label for="message">Message:</label><br>
+      <textarea id="message" name="message"></textarea><br>
+      <button type="submit">Send</button>
+    </form>
+    <!-- Link to a JavaScript file -->
+    <script src="script.js"></script>
+  </body>
+</html>
+
+/* CSS code */
+/* Style the navigation menu */
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background-color: lightgray;
+}
+
+li {
+  float: left;
+}
+
+li a {
+  display: block;
+  color: black;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+
+li a:hover {
+  background-color: gray;
+}
+
+/* Style the form */
+form {
+  width: 50%;
+  margin: auto;
+  text-align: left;
+  padding: 20px;
+  border: 1px solid gray;
+}
+
+label {
+  display: block;
+  margin-bottom: 10px;
+}
+
+input, textarea {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid lightgray;
+  border-radius: 4px;
+  box-sizing: border-box;
+  margin-bottom: 20px;
+}
+
+button[type="submit"] {
+  width: 100%;
+  background-color: blue;
+  color: white;
+  padding: 14px 20px;
+  margin: 8px 0;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+button[type="submit"]:hover {
+  background-color: darkblue;
+}
+
+/* Style the heading */
+h

@@ -1,0 +1,43 @@
+<!-- HTML code -->
+<html>
+  <head>
+    <title>My Website</title>
+    <!-- Link to a stylesheet -->
+    <link rel="stylesheet" href="styles.css">
+  </head>
+  
+  <body>
+    <!-- Heading -->
+    <h1>Welcome to My Website</h1>
+    <!-- Paragraph -->
+    <p>Here is some information about my website.</p>
+    <!-- Button -->
+    <button id="my-button">Click me</button>
+    <!-- Link to a JavaScript file -->
+    <script src="script.js"></script>
+  </body>
+</html>
+
+/* CSS code */
+/* Style the heading */
+h1 {
+  color: blue;
+  font-size: 24px;
+}
+
+/* Style the button */
+button {
+  background-color: lightgray;
+  border: none;
+  padding: 8px 16px;
+}
+
+/* JavaScript code */
+// Get a reference to the button
+const button = document.getElementById("my-button");
+
+// Add a click event listener to the button
+button.addEventListener("click", () => {
+  // Display an alert when the button is clicked
+  alert("You clicked the button!");
+});

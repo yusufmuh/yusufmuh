@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous" />
+
+    <!--bootstrap Icon-->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.2/font/bootstrap-icons.css">
+
+    <!--my Css>-->
+<link rel="stylesheet" href="styles.css"
+    </head>
+
+<body id="home">
+    <!--NavBar-->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary shadow fixed-top">
+    <div class="container">
+        <a class="navbar-brand" href="#">Muhammad Yusuf</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-auto">
+            <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="#home">Home</a>
+            </li>
+            <li class="nav-item">
+            <a class="nav-link" href="#about">Tentang/About</a>
+            </li>
+            <li class="nav-item">
+            <a class="nav-link" href="#projects">Pengalaman</a>
+            </li>
+            <li class="nav-item">
+            <a class="nav-link" href="#contact">Contact</a>
+            </li>
+        </ul>
+        </div>
+    </div>
+    </nav>
+    <!-- Akhir NavBar-->
+
+    <!--Jumbo Tron-->
+    <section class="jumbotron text-center">
+        <img src="img/pp.jpg" alt="Muhammad Yusuf" width="100" class="rounded-circle img-thumbnail" />
+    <h1 class="display-4">Muhammad Yusuf</h1>
+    <p class="lead">Programmer and Businessman </p>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="#fff" fill-opacity="1" d="M0,0L48,37.3C96,75,192,149,288,186.7C384,224,480,224,576,202.7C672,181,768,139,864,138.7C960,139,1056,181,1152,197.3C1248,213,1344,203,1392,197.3L1440,192L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path></svg>
+    
+    </section>
+    <!--Jumbo Tron Akhir-->
+
+    <!--Tentang/about-->
+    <section id="about">
+        <div class="container">
+            <div class="row text-center mb-3">
+                <div class="col">
+                    <h2>About Me</h2>
+                </div>
+            </div>
+            <div class="row justify-content-center fs-5 text-center">
+                <div class="col-md-4">
+                    <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Possimus hic ullam dicta consequuntur id quisquam voluptatibus. Et eos illum aliquid!</p>
+                </div>
+                <div class="col-md-4">
+                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Debitis facilis, voluptates vero ipsa qui in quibusdam. Consectetur excepturi nisi aliquam nulla aperiam minima magni inventore!</p>
+                </div>
+            </div>
+        </div>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="#e2edff" fill-opacity="1" d="M0,288L48,266.7C96,245,192,203,288,202.7C384,203,480,245,576,256C672,267,768,245,864,202.7C960,160,1056,96,1152,101.3C1248,107,1344,181,1392,218.7L1440,256L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path></svg>
+    </section>
+    <!--Akhir About-->
+
+    <!--Project-->
+<section id="projects" style="background-color: #e2edff;">
+    <div class="container">
+        <div class="row text-center mb-3">
+            <div class="col">
+                <h2>My projects</h2>
+            </div>
+        </div>
+        <div class="row justify-content-center">
+
+            <div class="col-md-4 mb-3">
+                <div class="card">
+                    <img src="img/amr-taha-XcPWswUrzK0-unsplash.jpg" class="card-img-top" alt="Project1">
+                    <div class="card-body">
+                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                </div>
+                </div>
+        </div>
+
+        <div class="col-md-4 mb-3">
+            <div class="card">
+                <img src="img/carl-raw-m3hn2Kn5Bns-unsplash.jpg" class="card-img-top" alt="Project2">
+                <div class="card-body">
+                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                </div>
+            </div>
+    </div>
+
+    <div class="col-md-4 mb-3">
+        <div class="card">
+            <img src="img/istockphoto-1157289628-1024x1024.jpg" class="card-img-top" alt="Project3">
+            <div class="card-body">
+            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4 mb-3">
+        <div class="card">
+            <img src="img/istockphoto-1157289628-1024x1024.jpg" class="card-img-top" alt="Project4">
+            <div class="card-body">
+            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4 mb-3">
+        <div class="card">
+            <img src="img/istockphoto-1157289628-1024x1024.jpg" class="card-img-top" alt="Project5">
+            <div class="card-body">
+            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+            </div>
+        </div>
+    </div>
+    </div>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="#fff" fill-opacity="1" d="M0,0L48,37.3C96,75,192,149,288,186.7C384,224,480,224,576,202.7C672,181,768,139,864,138.7C960,139,1056,181,1152,197.3C1248,213,1344,203,1392,197.3L1440,192L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path></svg>
+</section>
+<!--Akhir Project-->
+
+<!--Contact-->
+<section id="contact">
+    <div class="container">
+        <div class="row text-center mb-3">
+            <div class="col">
+                <h2>Contact Me</h2>
+            </div>
+        </div>
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <form>
+
+                    <div class="mb-3">
+                        <label for="name" class="form-label">Nama Lengkap</label>
+                        <input type="text" class="form-control" id="name" aria-describedby="name">
+                    </div>
+
+                    <div class="mb-3">
+                    <label for="email" class="form-label">Email</label>
+                    <input type="email" class="form-control" id="email" aria-describedby="email">
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="pesan" class="form-label">pesan</label>
+                        <textarea class="form-control" id="pesan" rows="3"></textarea>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary">Kirim</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="#0d6efd" fill-opacity="1" d="M0,224L48,234.7C96,245,192,267,288,272C384,277,480,267,576,266.7C672,267,768,277,864,240C960,203,1056,117,1152,90.7C1248,64,1344,96,1392,112L1440,128L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path></svg>
+</section>
+<!--Akhir Contact-->
+
+<!--Footer-->
+<footer class="bg-primary text-white text-center pb-5">
+    <p>Created with <i class="bi bi-heart-fill text-danger"></i> by <a href="" class="text-white fw-bold" >Muhammad Yusuf</a></p>
+</footer>
+<!--Akhir Footer-->
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+</body>
+</html>

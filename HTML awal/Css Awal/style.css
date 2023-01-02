@@ -1,0 +1,22 @@
+h1 {
+    color: blue;
+    font-family: arial, Verdana, Geneva, Tahoma, sans-serif;
+    font-size: 50px;
+    font-variant: small-caps;
+}
+p{
+    font-family: 'Courier New', Courier, monospace;
+    font-style: unset;
+    line-height: 20px;
+    text-decoration: underline;
+    text-transform: uppercase;
+}
+body {
+    font: italic normal bold 16px/18px helvetica,arial, sans-serif;
+}
+
+body {
+    background-color: rgb(255, 255, 255);
+    background-image: url(pink-flowers.jpg);
+    background-repeat: ;
+}
