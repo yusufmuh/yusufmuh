@@ -21,7 +21,7 @@ GMAIL_QUERY = (
     'subject:(undangan OR invitation OR invite OR meeting OR interview OR wawancara OR jadwal OR schedule OR zoom OR webinar OR rapat) '
     'OR "zoom.us" OR "meet.google.com" OR "teams.microsoft.com" '
     'OR has:attachment filename:ics'
-    ') newer_than:7d'
+    ') newer_than:2d'
 )
 
 

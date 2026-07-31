@@ -53,14 +53,17 @@ def open_meeting_url(url: str) -> bool:
 
 
 def check_upcoming_meetings() -> None:
-    """Poll Google Calendar for meetings starting in the next 2 minutes."""
+    """Poll Google Calendar for meetings starting in the next 35 minutes.
+
+    Window is 35 minutes so a 30-minute poll interval never misses events.
+    """
     try:
         sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
         from src.google_auth import get_calendar_service
 
         calendar = get_calendar_service(ZOOM_ACCOUNT)
         now = datetime.now(timezone.utc)
-        soon = now + timedelta(minutes=2)
+        soon = now + timedelta(minutes=35)
 
         results = calendar.events().list(
             calendarId="primary",
@@ -146,7 +149,8 @@ class WebhookHandler(BaseHTTPRequestHandler):
             self._send_json(404, {"error": "not found"})
 
 
-def poll_loop(interval_seconds: int = 60) -> None:
+def poll_loop(interval_seconds: int = 1800) -> None:
+    """Default poll every 30 minutes (matches EmailMeetingZoomLaunch)."""
     import time
     while True:
         check_upcoming_meetings()
