@@ -3,6 +3,7 @@ credentials/*
 !credentials/README.md
 data/
 .env
+google-apps-script/COPY-PASTE.gs
 
 # Python
 __pycache__/
