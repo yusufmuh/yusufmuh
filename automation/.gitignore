@@ -1,0 +1,15 @@
+# Credentials — JANGAN commit ke git
+credentials/*
+!credentials/README.md
+data/
+.env
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+venv/
+
+# OS
+.DS_Store
+Thumbs.db

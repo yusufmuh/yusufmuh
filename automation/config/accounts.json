@@ -1,0 +1,74 @@
+{
+  "primary_calendar": "yusuf.consultan@gmail.com",
+  "zoom_account": "yusuf.consultan@gmail.com",
+  "accounts": [
+    {
+      "email": "yusuf.consultan@gmail.com",
+      "nickname": "yusuf-consultan",
+      "role": "primary"
+    },
+    {
+      "email": "muhammad.yusuf010@binus.ac.id",
+      "nickname": "binus",
+      "role": "monitor"
+    },
+    {
+      "email": "kuron.kursusonline@gmail.com",
+      "nickname": "kuron",
+      "role": "monitor"
+    },
+    {
+      "email": "muhammad.yusufbinbambang@gmail.com",
+      "nickname": "yusuf-bambang",
+      "role": "monitor"
+    },
+    {
+      "email": "myustadzbambang@gmail.com",
+      "nickname": "ustadz-bambang",
+      "role": "monitor"
+    },
+    {
+      "email": "yuukina99@gmail.com",
+      "nickname": "yuukina",
+      "role": "monitor"
+    },
+    {
+      "email": "muhammad.yusuf010@edukator.elevaite.id",
+      "nickname": "elevaite",
+      "role": "monitor"
+    }
+  ],
+  "meeting_keywords": [
+    "undangan",
+    "invitation",
+    "invite",
+    "meeting",
+    "interview",
+    "wawancara",
+    "jadwal",
+    "schedule",
+    "calendar",
+    "kalender",
+    "zoom",
+    "google meet",
+    "teams",
+    "webinar",
+    "conference",
+    "appointment",
+    "janji",
+    "rapat",
+    "diskusi",
+    "call",
+    "sync"
+  ],
+  "meeting_link_patterns": [
+    "https://zoom.us/j/",
+    "https://us02web.zoom.us/j/",
+    "https://meet.google.com/",
+    "https://teams.microsoft.com/",
+    "https://teams.live.com/",
+    "https://webex.com/",
+    "https://whereby.com/",
+    "zoommtg://"
+  ]
+}
