@@ -28,9 +28,9 @@ function getWebhookConfig() {
 function setupWebhookConfig() {
   const props = PropertiesService.getScriptProperties();
   props.setProperties({
-    'CURSOR_WEBHOOK_URL': 'https://api2.cursor.sh/automations/webhook/cdac76b4-8cc0-11f1-a7d1-d6b4613131ce',
-    'CURSOR_WEBHOOK_TOKEN': 'crsr_73fc9b0e4d8f3a2566ef802f51b57345a59be87564a4421e2426ccd1927b515f',
-    'LOCAL_WEBHOOK_URL': '', // isi URL ngrok jika ada, contoh: https://abc123.ngrok.io
+    'CURSOR_WEBHOOK_URL': 'PASTE_WEBHOOK_URL_HERE',
+    'CURSOR_WEBHOOK_TOKEN': 'PASTE_TOKEN_HERE',
+    'LOCAL_WEBHOOK_URL': '', // isi URL ngrok jika ada
   });
   Logger.log('Webhook config saved to Script Properties.');
 }

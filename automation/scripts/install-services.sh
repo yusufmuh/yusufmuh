@@ -8,7 +8,7 @@ HOME_DIR=$(eval echo "~$USER_NAME")
 
 echo "Installing systemd services for $USER_NAME..."
 
-# Email sync service (every hour via timer)
+# Email sync service (every 12 hours via timer)
 cat > /tmp/email-calendar-sync.service << EOF
 [Unit]
 Description=Email to Calendar Sync
@@ -27,10 +27,10 @@ EOF
 
 cat > /tmp/email-calendar-sync.timer << EOF
 [Unit]
-Description=Run email-calendar sync every hour
+Description=Run email-calendar sync every 12 hours
 
 [Timer]
-OnCalendar=hourly
+OnCalendar=00,12:00:00
 Persistent=true
 
 [Install]
@@ -68,7 +68,7 @@ sudo systemctl start meeting-launcher.service
 
 echo ""
 echo "Services installed:"
-echo "  email-calendar-sync.timer  — sync setiap jam"
+echo "  email-calendar-sync.timer  — sync setiap 12 jam"
 echo "  meeting-launcher.service   — webhook + auto-open Zoom"
 echo ""
 echo "Status:"

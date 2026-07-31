@@ -9,7 +9,7 @@ Sistem otomatis yang membaca email undangan meeting/interview dari **7 akun Gmai
 │  7 Akun Gmail (OAuth)                                       │
 │  yusuf.consultan@gmail.com, binus, kuron, dll.              │
 └──────────────────────┬──────────────────────────────────────┘
-                       │ scan setiap jam
+                       │ scan setiap 12 jam
                        ▼
 ┌─────────────────────────────────────────────────────────────┐
 │  Email Parser — deteksi undangan, .ics, link Zoom/Meet      │
@@ -19,7 +19,8 @@ Sistem otomatis yang membaca email undangan meeting/interview dari **7 akun Gmai
 ┌─────────────────────────────────────────────────────────────┐
 │  Google Calendar (yusuf.consultan@gmail.com)                │
 └──────────────────────┬──────────────────────────────────────┘
-                       │ 2 menit sebelum meeting
+                       │ EmailMeetingZoomLaunch tiap 30 menit
+                       │ (lookahead 35 menit)
                        ▼
 ┌─────────────────────────────────────────────────────────────┐
 │  Google Apps Script → Cursor Webhook → Local Launcher       │
@@ -82,15 +83,15 @@ chmod +x scripts/install-services.sh
 ### 7. Cursor Automation
 
 1. Buka https://cursor.com/automations/new
-2. **Automation 1 — Email Sync:**
-   - Trigger: Scheduled (`0 * * * *` = setiap jam)
-   - Repository: No repository
-   - Tools: MCP server (meeting-automation)
-   - Prompt: copy dari `cursor-automations/01-email-calendar-sync.md`
-3. **Automation 2 — Meeting Zoom:**
+2. **Email Meeting Sync → Calendar:**
+   - Trigger: Scheduled (`0 */12 * * *` = setiap **12 jam**)
+   - Prompt: `cursor-automations/PROMPT-01-email-sync.txt`
+3. **EmailMeetingZoomLaunch:**
+   - Trigger: Scheduled (`*/30 * * * *` = setiap **30 menit**, tetap)
+   - Prompt: `cursor-automations/PROMPT-03-email-meeting-zoom-launch.txt`
+4. **Meeting Start → Open Zoom:**
    - Trigger: Webhook
-   - Prompt: copy dari `cursor-automations/02-meeting-zoom-webhook.md`
-   - Simpan webhook URL + token
+   - Prompt: `cursor-automations/PROMPT-02-meeting-webhook.txt`
 
 ### 8. Google Apps Script (trigger waktu meeting)
 
