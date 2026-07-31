@@ -1,0 +1,28 @@
+# Secrets & local auth — NEVER commit
+.env
+credentials.json
+token*.json
+tokens/
+*.pem
+*.key
+
+# Runtime data
+data/*.json
+data/*.db
+data/*.sqlite
+!data/.gitkeep
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.egg-info/
+.venv/
+venv/
+.env.local
+
+# OS / IDE
+.DS_Store
+.idea/
+.vscode/
+*.log
