@@ -1,0 +1,32 @@
+Kamu menerima webhook saat waktu meeting tiba. Payload JSON ada di bagian bawah prompt ini.
+
+## Langkah
+
+1. Parse payload webhook:
+   - event / type (default: meeting_start)
+   - title / eventTitle / summary
+   - start / startTime
+   - url / meeting_url / zoom_url / location
+
+2. Cek Memories — apakah reminder untuk event ini (title + start) sudah dikirim?
+   Jika sudah → jawab "Already processed" dan stop.
+
+3. Verifikasi di Google Calendar (yusuf.consultan@gmail.com):
+   Gunakan MCP Calendar untuk cek event dengan judul dan waktu yang sama.
+
+4. Ekstrak meeting URL (prioritas):
+   zoom_url → url → location
+   Harus berisi zoom.us, meet.google.com, atau teams.microsoft.com
+
+5. Catat ke Memories: title, start, url, timestamp.
+
+6. Output ringkasan:
+   - Judul meeting
+   - Waktu
+   - Link meeting
+   - Status: processed
+
+## Penting
+- JANGAN coba buka aplikasi di cloud VM
+- Pembukaan Zoom dilakukan oleh local launcher di device user
+- Payload tidak valid → laporkan error, jangan lanjut
