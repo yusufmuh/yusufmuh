@@ -1,16 +1,18 @@
 /**
- * Google Apps Script — Meeting Time Trigger
+ * Google Apps Script — Meeting Time Trigger (v3, 30-minute interval)
  *
  * Setup:
  * 1. Buka https://script.google.com (login: yusuf.consultan@gmail.com)
- * 2. Buat project baru, paste script ini
- * 3. Jalankan setupWebhookConfig() sekali → authorize
- * 4. Jalankan setupTriggers() sekali
- * 5. Jalankan testWebhook() untuk verifikasi
+ * 2. Paste COPY-PASTE.gs (versi lengkap) ATAU isi URL/token di bawah
+ * 3. Jalankan setupTriggers() → authorize
+ * 4. Jalankan testWebhook()
+ *
+ * Interval: 30 menit | Lookahead: 35 menit
  */
 
 const CALENDAR_EMAIL = 'yusuf.consultan@gmail.com';
-const MINUTES_BEFORE = 2;
+const CHECK_INTERVAL_MIN = 30;
+const LOOKAHEAD_MINUTES = 35;
 
 function getWebhookConfig() {
   const props = PropertiesService.getScriptProperties();
@@ -21,18 +23,14 @@ function getWebhookConfig() {
   };
 }
 
-/**
- * Jalankan SEKALI untuk menyimpan webhook credentials.
- * Ganti nilai di bawah sebelum run.
- */
 function setupWebhookConfig() {
   const props = PropertiesService.getScriptProperties();
   props.setProperties({
     'CURSOR_WEBHOOK_URL': 'PASTE_WEBHOOK_URL_HERE',
     'CURSOR_WEBHOOK_TOKEN': 'PASTE_TOKEN_HERE',
-    'LOCAL_WEBHOOK_URL': '', // isi URL ngrok jika ada
+    'LOCAL_WEBHOOK_URL': '',
   });
-  Logger.log('Webhook config saved to Script Properties.');
+  Logger.log('Webhook config saved.');
 }
 
 function checkUpcomingMeetings() {
@@ -43,23 +41,17 @@ function checkUpcomingMeetings() {
   }
 
   const now = new Date();
-  const soon = new Date(now.getTime() + MINUTES_BEFORE * 60 * 1000);
+  const soon = new Date(now.getTime() + LOOKAHEAD_MINUTES * 60 * 1000);
   const events = CalendarApp.getDefaultCalendar().getEvents(now, soon);
   const props = PropertiesService.getScriptProperties();
 
   events.forEach(function(event) {
-    const eventId = event.getId();
-    const firedKey = 'fired_' + eventId;
-
-    if (props.getProperty(firedKey)) {
-      return;
-    }
+    const firedKey = 'fired_' + event.getId() + '_' + event.getStartTime().getTime();
+    if (props.getProperty(firedKey)) return;
 
     const title = event.getTitle();
-    const start = event.getStartTime();
     const location = event.getLocation() || '';
     const description = event.getDescription() || '';
-
     let meetingUrl = '';
     if (location.startsWith('http')) {
       meetingUrl = location;
@@ -70,11 +62,12 @@ function checkUpcomingMeetings() {
       const teamsMatch = text.match(/https?:\/\/teams\.(?:microsoft\.com|live\.com)\/[^\s]*/i);
       meetingUrl = (zoomMatch || meetMatch || teamsMatch || [''])[0];
     }
+    if (!meetingUrl) return;
 
     const payload = {
       event: 'meeting_start',
       title: title,
-      start: start.toISOString(),
+      start: event.getStartTime().toISOString(),
       url: meetingUrl,
       zoom_url: meetingUrl.indexOf('zoom') >= 0 ? meetingUrl : '',
       location: location,
@@ -90,24 +83,12 @@ function checkUpcomingMeetings() {
         muteHttpExceptions: true,
       });
       Logger.log('Cursor webhook [' + response.getResponseCode() + ']: ' + title);
+      if (response.getResponseCode() >= 200 && response.getResponseCode() < 300) {
+        props.setProperty(firedKey, 'true');
+      }
     } catch (e) {
       Logger.log('Cursor webhook failed: ' + e);
     }
-
-    if (config.localUrl) {
-      try {
-        UrlFetchApp.fetch(config.localUrl, {
-          method: 'post',
-          contentType: 'application/json',
-          payload: JSON.stringify(payload),
-          muteHttpExceptions: true,
-        });
-      } catch (e) {
-        Logger.log('Local webhook failed: ' + e);
-      }
-    }
-
-    props.setProperty(firedKey, 'true');
   });
 }
 
@@ -115,13 +96,11 @@ function setupTriggers() {
   ScriptApp.getProjectTriggers().forEach(function(trigger) {
     ScriptApp.deleteTrigger(trigger);
   });
-
   ScriptApp.newTrigger('checkUpcomingMeetings')
     .timeBased()
-    .everyMinutes(1)
+    .everyMinutes(CHECK_INTERVAL_MIN)
     .create();
-
-  Logger.log('Trigger created: checkUpcomingMeetings every 1 minute');
+  Logger.log('Trigger: every ' + CHECK_INTERVAL_MIN + ' min, lookahead ' + LOOKAHEAD_MINUTES + ' min');
 }
 
 function testWebhook() {
@@ -130,24 +109,19 @@ function testWebhook() {
     Logger.log('ERROR: Run setupWebhookConfig() first.');
     return;
   }
-
-  const payload = {
-    event: 'meeting_start',
-    title: 'Test Meeting dari Google Apps Script',
-    start: new Date().toISOString(),
-    url: 'https://zoom.us/j/1234567890',
-    zoom_url: 'https://zoom.us/j/1234567890',
-    calendar_email: CALENDAR_EMAIL,
-  };
-
   const response = UrlFetchApp.fetch(config.url, {
     method: 'post',
     contentType: 'application/json',
     headers: { 'Authorization': 'Bearer ' + config.token },
-    payload: JSON.stringify(payload),
+    payload: JSON.stringify({
+      event: 'meeting_start',
+      title: 'Test Meeting',
+      start: new Date().toISOString(),
+      url: 'https://zoom.us/j/1234567890',
+      calendar_email: CALENDAR_EMAIL,
+    }),
     muteHttpExceptions: true,
   });
-
   Logger.log('Status: ' + response.getResponseCode());
   Logger.log('Response: ' + response.getContentText());
 }
