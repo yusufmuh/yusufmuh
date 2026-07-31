@@ -2,27 +2,48 @@
  * Google Apps Script — Meeting Time Trigger
  *
  * Setup:
- * 1. Buka https://script.google.com
+ * 1. Buka https://script.google.com (login: yusuf.consultan@gmail.com)
  * 2. Buat project baru, paste script ini
- * 3. Ganti CURSOR_WEBHOOK_URL dan CURSOR_WEBHOOK_TOKEN
- * 4. Ganti LOCAL_WEBHOOK_URL jika punya tunnel (ngrok/cloudflare)
- * 5. Jalankan setupTriggers() sekali
- * 6. Authorize akses Google Calendar
+ * 3. Jalankan setupWebhookConfig() sekali → authorize
+ * 4. Jalankan setupTriggers() sekali
+ * 5. Jalankan testWebhook() untuk verifikasi
  */
 
-const CURSOR_WEBHOOK_URL = 'https://api2.cursor.sh/automations/webhook/YOUR_AUTOMATION_ID';
-const CURSOR_WEBHOOK_TOKEN = 'crsr_YOUR_TOKEN';
-const LOCAL_WEBHOOK_URL = 'http://localhost:8765'; // Ganti dengan ngrok URL jika remote
 const CALENDAR_EMAIL = 'yusuf.consultan@gmail.com';
 const MINUTES_BEFORE = 2;
 
+function getWebhookConfig() {
+  const props = PropertiesService.getScriptProperties();
+  return {
+    url: props.getProperty('CURSOR_WEBHOOK_URL'),
+    token: props.getProperty('CURSOR_WEBHOOK_TOKEN'),
+    localUrl: props.getProperty('LOCAL_WEBHOOK_URL') || '',
+  };
+}
+
 /**
- * Check calendar every minute for meetings starting soon.
+ * Jalankan SEKALI untuk menyimpan webhook credentials.
+ * Ganti nilai di bawah sebelum run.
  */
+function setupWebhookConfig() {
+  const props = PropertiesService.getScriptProperties();
+  props.setProperties({
+    'CURSOR_WEBHOOK_URL': 'https://api2.cursor.sh/automations/webhook/cdac76b4-8cc0-11f1-a7d1-d6b4613131ce',
+    'CURSOR_WEBHOOK_TOKEN': 'crsr_73fc9b0e4d8f3a2566ef802f51b57345a59be87564a4421e2426ccd1927b515f',
+    'LOCAL_WEBHOOK_URL': '', // isi URL ngrok jika ada, contoh: https://abc123.ngrok.io
+  });
+  Logger.log('Webhook config saved to Script Properties.');
+}
+
 function checkUpcomingMeetings() {
+  const config = getWebhookConfig();
+  if (!config.url || !config.token) {
+    Logger.log('ERROR: Run setupWebhookConfig() first.');
+    return;
+  }
+
   const now = new Date();
   const soon = new Date(now.getTime() + MINUTES_BEFORE * 60 * 1000);
-
   const events = CalendarApp.getDefaultCalendar().getEvents(now, soon);
   const props = PropertiesService.getScriptProperties();
 
@@ -31,7 +52,7 @@ function checkUpcomingMeetings() {
     const firedKey = 'fired_' + eventId;
 
     if (props.getProperty(firedKey)) {
-      return; // Already fired for this event
+      return;
     }
 
     const title = event.getTitle();
@@ -60,25 +81,22 @@ function checkUpcomingMeetings() {
       calendar_email: CALENDAR_EMAIL,
     };
 
-    // Fire Cursor webhook
     try {
-      UrlFetchApp.fetch(CURSOR_WEBHOOK_URL, {
+      const response = UrlFetchApp.fetch(config.url, {
         method: 'post',
         contentType: 'application/json',
-        headers: {
-          'Authorization': 'Bearer ' + CURSOR_WEBHOOK_TOKEN,
-        },
+        headers: { 'Authorization': 'Bearer ' + config.token },
         payload: JSON.stringify(payload),
         muteHttpExceptions: true,
       });
+      Logger.log('Cursor webhook [' + response.getResponseCode() + ']: ' + title);
     } catch (e) {
       Logger.log('Cursor webhook failed: ' + e);
     }
 
-    // Fire local webhook (if tunnel available)
-    if (LOCAL_WEBHOOK_URL && LOCAL_WEBHOOK_URL.indexOf('localhost') < 0) {
+    if (config.localUrl) {
       try {
-        UrlFetchApp.fetch(LOCAL_WEBHOOK_URL, {
+        UrlFetchApp.fetch(config.localUrl, {
           method: 'post',
           contentType: 'application/json',
           payload: JSON.stringify(payload),
@@ -90,20 +108,14 @@ function checkUpcomingMeetings() {
     }
 
     props.setProperty(firedKey, 'true');
-    Logger.log('Fired webhook for: ' + title);
   });
 }
 
-/**
- * Run once to set up the time-driven trigger.
- */
 function setupTriggers() {
-  // Remove existing triggers
   ScriptApp.getProjectTriggers().forEach(function(trigger) {
     ScriptApp.deleteTrigger(trigger);
   });
 
-  // Check every minute
   ScriptApp.newTrigger('checkUpcomingMeetings')
     .timeBased()
     .everyMinutes(1)
@@ -112,27 +124,30 @@ function setupTriggers() {
   Logger.log('Trigger created: checkUpcomingMeetings every 1 minute');
 }
 
-/**
- * Manual test — simulates a meeting webhook.
- */
 function testWebhook() {
+  const config = getWebhookConfig();
+  if (!config.url || !config.token) {
+    Logger.log('ERROR: Run setupWebhookConfig() first.');
+    return;
+  }
+
   const payload = {
     event: 'meeting_start',
-    title: 'Test Meeting',
+    title: 'Test Meeting dari Google Apps Script',
     start: new Date().toISOString(),
     url: 'https://zoom.us/j/1234567890',
     zoom_url: 'https://zoom.us/j/1234567890',
     calendar_email: CALENDAR_EMAIL,
   };
 
-  const response = UrlFetchApp.fetch(CURSOR_WEBHOOK_URL, {
+  const response = UrlFetchApp.fetch(config.url, {
     method: 'post',
     contentType: 'application/json',
-    headers: {
-      'Authorization': 'Bearer ' + CURSOR_WEBHOOK_TOKEN,
-    },
+    headers: { 'Authorization': 'Bearer ' + config.token },
     payload: JSON.stringify(payload),
+    muteHttpExceptions: true,
   });
 
+  Logger.log('Status: ' + response.getResponseCode());
   Logger.log('Response: ' + response.getContentText());
 }
