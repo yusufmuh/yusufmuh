@@ -1,0 +1,16 @@
+# Credentials — JANGAN commit ke git
+credentials/*
+!credentials/README.md
+data/
+.env
+google-apps-script/COPY-PASTE.gs
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+venv/
+
+# OS
+.DS_Store
+Thumbs.db

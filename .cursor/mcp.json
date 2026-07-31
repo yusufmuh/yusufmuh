@@ -1,0 +1,18 @@
+{
+  "mcpServers": {
+    "meeting-automation": {
+      "command": "python",
+      "args": ["-m", "src.mcp_server"],
+      "cwd": "./automation",
+      "env": {
+        "GOOGLE_CREDENTIALS_PATH": "./automation/credentials/credentials.json"
+      }
+    },
+    "composio": {
+      "url": "https://mcp.composio.dev/composio/server/YOUR_COMPOSIO_SERVER_ID/mcp",
+      "headers": {
+        "x-api-key": "YOUR_COMPOSIO_API_KEY"
+      }
+    }
+  }
+}
