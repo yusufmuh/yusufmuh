@@ -1,0 +1,59 @@
+# Accounts to authorize with Google OAuth (Gmail + Calendar scopes).
+# Run: python scripts/auth_setup.py
+# Each account gets its own token under tokens/<email>.json
+accounts:
+  - email: yusuf.consultan@gmail.com
+    label: personal-consultant
+    enabled: true
+  - email: muhammad.yusuf010@binus.ac.id
+    label: binus
+    enabled: true
+  - email: kuron.kursusonline@gmail.com
+    label: kuron
+    enabled: true
+  - email: muhammad.yusufbinbambang@gmail.com
+    label: personal-bambang
+    enabled: true
+  - email: myustadzbambang@gmail.com
+    label: myustadz
+    enabled: true
+  - email: yuukina99@gmail.com
+    label: yuukina
+    enabled: true
+  - email: muhammad.yusuf010@edukator.elevaite.id
+    label: elevaite
+    enabled: true
+
+# Keywords / patterns that mark an email as a meeting / invite (case-insensitive)
+meeting_keywords:
+  - undangan
+  - meeting
+  - interview
+  - wawancara
+  - jadwal
+  - kalender
+  - calendar
+  - invite
+  - invitation
+  - rendezvous
+  - appointment
+  - zoom
+  - google meet
+  - meet.google
+  - teams.microsoft
+  - webex
+  - conference
+  - sync
+  - call with
+  - one-on-one
+  - 1:1
+  - pertemuan
+  - rapat
+  - briefing
+  - kickoff
+  - kick-off
+
+# Where synced events are written (account that owns the calendar)
+# After auth, set this to one authorized email, or leave "primary" to use
+# the first successfully authorized account's primary calendar.
+target_calendar_account: yusuf.consultan@gmail.com
